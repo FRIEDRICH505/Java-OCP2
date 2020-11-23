@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Lesson11.exercise11_2;
+
+/**
+ *
+ * @author FRIEDRICH
+ */
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Employeelmpl {
+
+    private static Employee[] employeeArray = new Employee[10];
+
+    Employeelmpl() {
+    }
+
+    public void add(Employee emp) throws InvalidOperationException {
+        if (employeeArray[emp.getId()] != null) {
+            throw new InvalidOperationException("Error adding employee , employee id already exists " + emp.getId());
+        }
+        try {
+            employeeArray[emp.getId()] = emp;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidOperationException("Error adding employee , id must be less than " + employeeArray.length);
+        }
+    }
+
+    public void delete(int id) throws InvalidOperationException {
+        if (employeeArray[id] == null) {
+            throw new InvalidOperationException("Error deleting employee, no such employee " + id);
+        }
+        try {
+            employeeArray[id] = null;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidOperationException("Error deleting employee, id must be less than " + employeeArray.length);
+        }
+    }
+
+    public Employee findById(int id) throws InvalidOperationException {
+        try {
+            return employeeArray[id];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidOperationException("Error finding employee ", e);
+        }
+    }
+
+        public Employee[] getAllEmployees() {
+        List<Employee> emps = new ArrayList<>();
+        for (Employee e : employeeArray) {
+            if (e != null) {
+                emps.add(e);
+            }
+        }
+        return emps.toArray(new Employee[0]);
+    }
+
+}
