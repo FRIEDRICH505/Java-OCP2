@@ -67,6 +67,21 @@ public class DateApplication {
     public void printMenu() {
         pw.println("=== Date App ===");
 
+        df = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(currentLocale);
+        pw.println(messages.getString("date1") + " " + today.format(df));
+
+        df = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(currentLocale);
+        pw.println(messages.getString("date2") + " " + today.format(df));
+
+        df = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(currentLocale);
+        pw.println(messages.getString("date3") + " " + today.format(df));
+
+        df = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(currentLocale);
+        pw.println(messages.getString("date4") + " " + today.format(df));
+
+        df = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(currentLocale);
+        pw.println(messages.getString("date5") + " " + today.format(df));
+
         pw.println("\n--- Choose Language Option ---");
         pw.println("1. " + messages.getString("menu1"));
         pw.println("2. " + messages.getString("menu2"));
@@ -77,18 +92,22 @@ public class DateApplication {
     }
 
     public void setEnglish() {
-
+        currentLocale = Locale.US;
+        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
     }
 
     public void setFrench() {
-
+        currentLocale = Locale.FRANCE;
+        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
     }
 
     public void setChinese() {
-
+        currentLocale = Locale.SIMPLIFIED_CHINESE;
+        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
     }
 
     public void setRussian() {
-
+        currentLocale = ruLocale;
+        this.messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
     }
 }
